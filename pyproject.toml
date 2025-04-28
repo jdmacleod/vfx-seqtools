@@ -1,0 +1,127 @@
+[project]
+name = "vfx_seqtools"
+version = "0.1.0"
+description = "CLI utilities for working with VFX frame sequences."
+authors = [
+    {name = "Jason MacLeod", email = "jason.d.macleod@gmail.com"},
+]
+dependencies = [
+    "fileseq>=2.1.0",
+    "pillow>=11.0.0",
+    "typer>=0.7.0",
+]
+requires-python = ">=3.9"
+readme = "README.md"
+license = "MIT"
+
+classifiers = [
+  # How mature is this project? Common values are
+  #   3 - Alpha
+  #   4 - Beta
+  #   5 - Production/Stable
+  "Development Status :: 4 - Beta",
+
+  "Environment :: Console",
+
+  "Framework :: Hatch",
+  "Framework :: Pytest",
+
+  # Indicate who your project is intended for
+  "Intended Audience :: End Users/Desktop",
+
+  # Specify the Python versions you support here.
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+
+  "Topic :: Artistic Software",
+  "Topic :: Multimedia :: Graphics",
+  "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://jdmacleod.github.io/vfx-seqtools/"
+#Documentation = "https://readthedocs.org"
+Repository = "https://github.com/jdmacleod/vfx-seqtools.git"
+Issues = "https://github.com/jdmacleod/vfx-seqtools"
+Changelog = "https://github.com/jdmacleod/vfx-seqtools/blob/main/CHANGELOG.md"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/vfx_seqtools"]
+
+[project.optional-dependencies]
+dev = [
+    "bandit>=1.8.0",
+    "mypy>=1.0.0",
+    "pre-commit>=3.5.0",
+    "pylint>=3.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-html>=4.0.0",
+    "pytest>=7.0.0",
+    "ruff>=0.1.0",
+    "safety>=3.2.9",
+]
+docs = [
+    "genbadge[all]>=1.0.0",
+    "mkdocs>=1.6.0",
+]
+
+[project.scripts]
+seqchk = "vfx_seqtools.seqchk_cli:app"
+seqcp = "vfx_seqtools.seqcp_cli:app"
+seqdo = "vfx_seqtools.seqdo_cli:app"
+seqexp = "vfx_seqtools.seqexp_cli:app"
+seqls = "vfx_seqtools.seqls_cli:app"
+seqmv = "vfx_seqtools.seqmv_cli:app"
+seqrm = "vfx_seqtools.seqrm_cli:app"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra -q"
+markers = [
+    "integration: marks tests as integration tests",
+]
+
+[tool.mypy]
+python_version = "3.9"
+plugins = []
+ignore_missing_imports = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+
+# Skip line too long warning (`E501`).
+extend-ignore = ["E501"]
+
+[tool.bandit]
+exclude_dirs = ["tests", "venv", ".env"]
