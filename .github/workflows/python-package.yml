@@ -1,0 +1,133 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install flake8 pytest pytest-cov pytest-html
+        if [ -f pyproject.toml ]; then pip install .; fi
+    - name: Lint with flake8
+      run: |
+        # stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Test with pytest
+      run: |
+        pytest --cov=vfx_seqtools --junitxml=tests/reports/junit/junit.xml --html=tests/reports/junit/report.html
+    - name: Generate coverage reports
+      run: |
+        python -m pip install coverage
+        coverage report
+        coverage xml -o ./tests/reports/coverage/coverage.xml
+        coverage html -d ./tests/reports/coverage
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: ./tests/reports/coverage/coverage.xml
+    # Share ./docs/reports so that they can be deployed with docs in next job, only retain for 1 day for debugging
+    - name: Share reports with other jobs
+      uses: actions/upload-artifact@v4.3.1
+      with:
+        name: reports_dir-${{ matrix.python-version }}
+        path: ./tests/reports
+        retention-days: 1
+  # merge reports, deleting source files after merge, and only retain merged artifact for 1 day for debugging
+  merge_reports:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Merge Artifacts
+        uses: actions/upload-artifact/merge@v4
+        with:
+          name: reports_dir
+          pattern: reports_dir-*
+          delete-merged: true
+          retention-days: 1
+
+  build_docs:
+    needs: merge_reports
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+
+      - name: Install python
+        uses: actions/setup-python@v5.1.0
+        with:
+          python-version: 3.x
+
+      - name: Install docs requirements
+        run: pip install .[docs]
+
+      - name: Build the docs with mkdocs
+        run: mkdocs build
+
+  publish_docs:
+    needs: build_docs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write  # IMPORTANT: mandatory for trusted publishing
+      pages: write
+    steps:
+      - name: GitHub context to debug conditional steps
+        env:
+          GITHUB_CONTEXT: ${{ toJSON(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
+      - name: Checkout with no depth
+        uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 0  # so that gh-deploy works
+          # persist-credentials: false  # see https://github.com/orgs/community/discussions/25702
+
+      - name: Install python
+        uses: actions/setup-python@v5.1.0
+        with:
+          python-version: '3.10'
+
+      # retrieve the reports generated previously. but move them to docs/
+      - name: Retrieve reports
+        uses: actions/download-artifact@v4.1.4
+        with:
+          name: reports_dir
+          path: ./docs/reports
+
+      - name: Install docs requirements from pyproject.toml
+        run: pip install .[docs]
+
+      - name: Generate badges with genbadge, using retrieved reports
+        run: |
+          genbadge tests --input-file ./docs/reports/junit/junit.xml --output-file ./docs/reports/junit/tests-badge.svg
+          genbadge coverage --input-file ./docs/reports/coverage/coverage.xml --output-file ./docs/reports/coverage/coverage-badge.svg
+      # -------------- only on Ubuntu + MAIN PUSH (no pull request, no tag) -----------
+
+      # 5) Publish the doc and test reports
+      - name: Publish documentation, tests and coverage reports
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/heads')
+        run: mkdocs gh-deploy --verbose
