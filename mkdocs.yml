@@ -1,0 +1,21 @@
+site_name: vfx-seqtools
+# site_description: 'Utilities for working with VFX frame sequences'
+repo_url: https://github.com/jdmacleod/vfx-seqtools
+#docs_dir: .
+#site_dir: ../site
+# default branch is main instead of master now on github
+edit_uri : ./edit/main/docs
+nav:
+    - Home: index.md
+    - Examples: examples.md
+
+theme: readthedocs
+
+markdown_extensions:
+  # - pymdownx.highlight  # see https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#highlight
+  # - pymdownx.superfences # same as above as well as code blocks inside other blocks
+  # - admonition  # to add notes such as http://squidfunk.github.io/mkdocs-material/extensions/admonition/
+#  - codehilite:
+#      guess_lang: false
+  - toc:
+      permalink: true
