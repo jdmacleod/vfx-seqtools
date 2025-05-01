@@ -1,6 +1,6 @@
 [project]
 name = "vfx_seqtools"
-version = "0.1.0"
+version = "0.1.1"
 description = "CLI utilities for working with VFX frame sequences."
 authors = [
     {name = "Jason MacLeod", email = "jason.d.macleod@gmail.com"},
