@@ -77,7 +77,6 @@ def seqcp(
     if frame_seq:
         frames = fileseq.FrameSet(frame_seq)
     elif frame_range[0] != 0 or frame_range[1] != 0:
-        print(f"frame_range: {frame_range}")
         frames = fileseq.FrameSet(f"{frame_range[0]}-{frame_range[1]}x{frame_range[2]}")
     else:
         frames = []
