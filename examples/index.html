@@ -51,16 +51,16 @@
     <li class="toctree-l2"><a class="reference internal" href="#copy-frames">Copy Frames</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#do-a-command">Do a command</a>
-        <ul>
-    <li class="toctree-l3"><a class="reference internal" href="#expand-a-sequence">Expand a sequence</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#list-sequences">List Sequences</a>
+    <li class="toctree-l2"><a class="reference internal" href="#expand-a-sequence">Expand a sequence</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#rename-a-sequence">Rename a Sequence</a>
+    <li class="toctree-l2"><a class="reference internal" href="#generate-a-sequence">Generate a sequence</a>
     </li>
-    <li class="toctree-l3"><a class="reference internal" href="#remove-a-sequence">Remove a Sequence</a>
+    <li class="toctree-l2"><a class="reference internal" href="#list-sequences">List Sequences</a>
     </li>
-        </ul>
+    <li class="toctree-l2"><a class="reference internal" href="#rename-a-sequence">Rename a Sequence</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#remove-a-sequence">Remove a Sequence</a>
     </li>
     </ul>
                 </li>
@@ -95,13 +95,12 @@
 <li><a href="#examples">Examples</a></li>
 <li><a href="#check-frames">Check Frames</a></li>
 <li><a href="#copy-frames">Copy Frames</a></li>
-<li><a href="#do-a-command">Do a command</a><ul>
+<li><a href="#do-a-command">Do a command</a></li>
 <li><a href="#expand-a-sequence">Expand a sequence</a></li>
+<li><a href="#generate-a-sequence">Generate a sequence</a></li>
 <li><a href="#list-sequences">List Sequences</a></li>
 <li><a href="#rename-a-sequence">Rename a Sequence</a></li>
 <li><a href="#remove-a-sequence">Remove a Sequence</a></li>
-</ul>
-</li>
 </ul>
 <h2 id="check-frames">Check Frames<a class="headerlink" href="#check-frames" title="Permanent link">&para;</a></h2>
 <p>Check a sequence to see if the files are good.</p>
@@ -115,19 +114,23 @@
 <p>Do a command, substituting in a frame number for every frame in a sequence.</p>
 <pre><code class="language-bash">seqdo
 </code></pre>
-<h3 id="expand-a-sequence">Expand a sequence<a class="headerlink" href="#expand-a-sequence" title="Permanent link">&para;</a></h3>
+<h2 id="expand-a-sequence">Expand a sequence<a class="headerlink" href="#expand-a-sequence" title="Permanent link">&para;</a></h2>
 <p>Expand a sequence, to see the list of frames it represents.</p>
 <pre><code class="language-bash">seqexp
 </code></pre>
-<h3 id="list-sequences">List Sequences<a class="headerlink" href="#list-sequences" title="Permanent link">&para;</a></h3>
+<h2 id="generate-a-sequence">Generate a sequence<a class="headerlink" href="#generate-a-sequence" title="Permanent link">&para;</a></h2>
+<p>Generate a sequence, from a list of frames.</p>
+<pre><code class="language-bash">seqgen
+</code></pre>
+<h2 id="list-sequences">List Sequences<a class="headerlink" href="#list-sequences" title="Permanent link">&para;</a></h2>
 <p>List files, grouping them into sequences for readability.</p>
 <pre><code class="language-bash">seqls
 </code></pre>
-<h3 id="rename-a-sequence">Rename a Sequence<a class="headerlink" href="#rename-a-sequence" title="Permanent link">&para;</a></h3>
+<h2 id="rename-a-sequence">Rename a Sequence<a class="headerlink" href="#rename-a-sequence" title="Permanent link">&para;</a></h2>
 <p>Rename (move) files from one name to another, for every frame in a sequence.</p>
 <pre><code class="language-bash">seqmv
 </code></pre>
-<h3 id="remove-a-sequence">Remove a Sequence<a class="headerlink" href="#remove-a-sequence" title="Permanent link">&para;</a></h3>
+<h2 id="remove-a-sequence">Remove a Sequence<a class="headerlink" href="#remove-a-sequence" title="Permanent link">&para;</a></h2>
 <p>Remove (delete) files from disk, for every frame in a sequence.</p>
 <pre><code class="language-bash">seqrm
 </code></pre>
