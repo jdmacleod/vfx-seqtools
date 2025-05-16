@@ -12,6 +12,7 @@ from vfx_seqtools.decorators import attach_hook
 @attach_hook(common_options.logging_options, hook_output_kwarg="logger")
 @attach_hook(common_options.version_option, hook_output_kwarg="show_version")
 @attach_hook(common_options.sequence_only_option, hook_output_kwarg="only_on_sequences")
+@attach_hook(common_options.missing_frames_option, hook_output_kwarg="show_missing")
 def seqls(
     show_version: bool,
     logger: logging.Logger,
@@ -22,6 +23,7 @@ def seqls(
         ),
     ] = "",
     only_on_sequences: bool = False,
+    show_missing: bool = False,
 ) -> None:
     """
     List file sequences.
@@ -43,3 +45,7 @@ def seqls(
         if only_on_sequences and "@" not in str(seq) and "#" not in str(seq):
             continue
         print(f"{seq}")
+        if show_missing:
+            missing_frames = seq.invertedFrameRange()
+            if missing_frames:
+                print(f"Missing frames: {missing_frames}")

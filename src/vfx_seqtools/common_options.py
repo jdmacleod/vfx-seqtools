@@ -126,6 +126,19 @@ def sequence_only_option(
     return only_sequences
 
 
+def missing_frames_option(
+    missing_frames: Annotated[
+        Optional[bool],
+        typer.Option(
+            "--missing-frames",
+            "-m",
+            help="Show missing frames in sequences.",
+        ),
+    ] = False,
+) -> Optional[bool]:
+    return missing_frames
+
+
 def frame_range_options(
     frame_start: Annotated[
         int,
