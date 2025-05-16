@@ -1,8 +1,10 @@
 import glob
 import logging
+import pathlib
 from typing import Annotated, Optional
 
 import fileseq
+import OpenEXR
 import typer
 from PIL import Image
 from rich.progress import (
@@ -29,11 +31,24 @@ def do_action(tupl: tuple) -> bool:
             logger.info(f"CHECK {framefile}")
 
         try:
-            Image.open(framefile).verify()
-            # print(f"{verify_response} was returned by verify")
-            Image.open(framefile)
-            # print(f"{im.filename.split('/')[-1]} is a valid image")
-            # im.show()
+            framepath = pathlib.Path(framefile)
+            if framepath.suffix.lower() == ".exr":
+                with OpenEXR.File(framefile):
+                    # header = infile.header()
+                    # print(f"type={header['type']}")
+                    # print(f"compression={header['compression']}")
+
+                    # RGB = infile.channels()["RGB"].pixels
+                    # height, width = RGB.shape[0:2]
+                    # print(f"width={width}, height={height}")
+                    # print(f"channels={infile.channels()}")
+                    pass
+            else:
+                Image.open(framefile).verify()
+                # print(f"{verify_response} was returned by verify")
+                Image.open(framefile)
+                # print(f"{im.filename.split('/')[-1]} is a valid image")
+                # im.show()
             return True
         except Exception:
             return False
