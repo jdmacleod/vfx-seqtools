@@ -6,10 +6,11 @@ Examples of using `noc` to interact with [Netflix Open Content](https://opencont
   - [Check Frames](#check-frames)
   - [Copy Frames](#copy-frames)
   - [Do a command](#do-a-command)
-    - [Expand a sequence](#expand-a-sequence)
-    - [List Sequences](#list-sequences)
-    - [Rename a Sequence](#rename-a-sequence)
-    - [Remove a Sequence](#remove-a-sequence)
+  - [Expand a sequence](#expand-a-sequence)
+  - [Generate a sequence](#generate-a-sequence)
+  - [List Sequences](#list-sequences)
+  - [Rename a Sequence](#rename-a-sequence)
+  - [Remove a Sequence](#remove-a-sequence)
 
 ## Check Frames
 
@@ -35,7 +36,7 @@ Do a command, substituting in a frame number for every frame in a sequence.
 seqdo
 ```
 
-### Expand a sequence
+## Expand a sequence
 
 Expand a sequence, to see the list of frames it represents.
 
@@ -43,7 +44,15 @@ Expand a sequence, to see the list of frames it represents.
 seqexp
 ```
 
-### List Sequences
+## Generate a sequence
+
+Generate a sequence, from a list of frames.
+
+```bash
+seqgen
+```
+
+## List Sequences
 
 List files, grouping them into sequences for readability.
 
@@ -51,7 +60,7 @@ List files, grouping them into sequences for readability.
 seqls
 ```
 
-### Rename a Sequence
+## Rename a Sequence
 
 Rename (move) files from one name to another, for every frame in a sequence.
 
@@ -59,7 +68,7 @@ Rename (move) files from one name to another, for every frame in a sequence.
 seqmv
 ```
 
-### Remove a Sequence
+## Remove a Sequence
 
 Remove (delete) files from disk, for every frame in a sequence.
 

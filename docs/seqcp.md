@@ -1,0 +1,3 @@
+# seqcp
+
+Copy a sequence.

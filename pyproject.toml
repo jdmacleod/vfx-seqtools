@@ -1,11 +1,12 @@
 [project]
 name = "vfx_seqtools"
-version = "0.1.1"
+version = "0.2.0"
 description = "CLI utilities for working with VFX frame sequences."
 authors = [
     {name = "Jason MacLeod", email = "jason.d.macleod@gmail.com"},
 ]
 dependencies = [
+    "OpenEXR>=3.3.0",
     "fileseq>=2.1.0",
     "pillow>=11.0.0",
     "typer>=0.7.0",
@@ -79,6 +80,7 @@ seqchk = "vfx_seqtools.seqchk_cli:app"
 seqcp = "vfx_seqtools.seqcp_cli:app"
 seqdo = "vfx_seqtools.seqdo_cli:app"
 seqexp = "vfx_seqtools.seqexp_cli:app"
+seqgen = "vfx_seqtools.seqgen_cli:app"
 seqls = "vfx_seqtools.seqls_cli:app"
 seqmv = "vfx_seqtools.seqmv_cli:app"
 seqrm = "vfx_seqtools.seqrm_cli:app"

@@ -36,6 +36,7 @@ This will provide the command-line utilities:
 - `seqcp` - copy frames according to provided name patterns and frame range.
 - `seqdo` - do command(s), substituting in the provided frame range.
 - `seqexp` - expand a frame sequence, to evaluate it visually.
+- `seqgen` - given a list of framenumbers, make a frame sequence.
 - `seqls` - list frame sequences in the current directory.
 - `seqmv` - move (rename) frames according to provided name patterns and frame range.
 - `seqrm` - remove (delete) frames according to provided name patterns and frame range.

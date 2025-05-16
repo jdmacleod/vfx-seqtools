@@ -4,6 +4,7 @@ import glob
 import logging
 
 import fileseq
+import OpenEXR
 import PIL
 import PIL.Image
 import pytest
@@ -57,23 +58,32 @@ def test_seqchk_calls_pillow(mocker: MockFixture) -> None:
     PIL.Image.open.assert_called()
 
 
-def test_seqchk_honors_dry_run(
+def test_seqchk_calls_openexr(mocker: MockFixture) -> None:
+    """Test that the seqchk command calls openexr to check an exr image."""
+    mocker.patch("glob.glob", return_value=test_files)
+    mocker.patch("OpenEXR.File", return_value=True)
+    result = runner.invoke(app, ["*.exr"])
+    assert result.exit_code == 0
+    OpenEXR.File.assert_called()
+
+
+def test_seqchk_honors_dry_run_with_exr(
     mocker: MockFixture, caplog: pytest.LogCaptureFixture
 ) -> None:
     """Test that the seqchk command honors dry-run option."""
     caplog.set_level(logging.INFO)  # Set the caplog level to INFO and above
     mocker.patch("glob.glob", return_value=test_files)
     mocker.patch("fileseq.findSequencesInList", return_value=[test_files])
-    mocker.patch("PIL.Image.open", return_value=True)
+    mocker.patch("OpenEXR.File", return_value=True)
     result = runner.invoke(app, ["*.exr", "-n"])
     assert result.exit_code == 0
-    PIL.Image.open.assert_not_called()  # type: ignore[attr-defined]
+    OpenEXR.File.assert_not_called()  # type: ignore[attr-defined]
     assert result.stdout == ""
     assert "dry-run: CHECK" in caplog.text
     caplog.clear()
 
 
-def test_seqchk_honors_verbose_option(
+def test_seqchk_honors_verbose_option_with_exr(
     mocker: MockFixture, caplog: pytest.LogCaptureFixture
 ) -> None:
     """Test that the seqmv command honors verbose option."""
@@ -81,9 +91,10 @@ def test_seqchk_honors_verbose_option(
         logging.INFO, logger="rich"
     )  # Set the rich caplog level to INFO and above
     mocker.patch("glob.glob", return_value=test_files)
-    mocker.patch("PIL.Image.open", return_value=True)
-    result = runner.invoke(app, ["*.exr", "-v"])
+    mocker.patch("OpenEXR.File", return_value=True)
+    result = runner.invoke(app, ["*.exr", "--verbose"])
     assert result.exit_code == 0
-    PIL.Image.open.assert_called()
+    glob.glob.assert_called_once_with("*.exr")  # type: ignore[attr-defined]
+    OpenEXR.File.assert_called()
     assert "CHECK file.0005.exr" in caplog.text
     caplog.clear()
