@@ -1,77 +1,102 @@
 # Examples
 
-Examples of using `noc` to interact with [Netflix Open Content](https://opencontent.netflix.com/) media.
+This page provides practical examples of using the `vfx-seqtools` command-line utilities for working with frame sequences in Animation and VFX. Replace file patterns and frame ranges with those relevant to your project.
 
-- [Examples](#examples)
-  - [Check Frames](#check-frames)
-  - [Copy Frames](#copy-frames)
-  - [Do a command](#do-a-command)
-  - [Expand a sequence](#expand-a-sequence)
-  - [Generate a sequence](#generate-a-sequence)
-  - [List Sequences](#list-sequences)
-  - [Rename a Sequence](#rename-a-sequence)
-  - [Remove a Sequence](#remove-a-sequence)
+- [Check Frames](#check-frames)
+- [Copy Frames](#copy-frames)
+- [Do a Command](#do-a-command)
+- [Expand a Sequence](#expand-a-sequence)
+- [Generate a Sequence](#generate-a-sequence)
+- [List Sequences](#list-sequences)
+- [Rename a Sequence](#rename-a-sequence)
+- [Remove a Sequence](#remove-a-sequence)
 
 ## Check Frames
 
-Check a sequence to see if the files are good.
+Check a sequence for missing or corrupt files (e.g., missing frames in an image sequence):
 
 ```bash
-seqchk
+seqchk render.%04d.exr 1001-1050
 ```
+
+- Checks files like `render.1001.exr` to `render.1050.exr` for existence and validity.
 
 ## Copy Frames
 
-Copy frames from one name to another.
+Copy a sequence of frames to a new location or pattern:
 
 ```bash
-seqcp
+seqcp render.%04d.exr comped.%04d.exr 1001-1050
 ```
 
-## Do a command
+- Copies frames from `render.1001.exr` to `comped.1001.exr`, etc.
 
-Do a command, substituting in a frame number for every frame in a sequence.
+## Do a Command
+
+Run a shell command for each frame in a sequence, substituting `{}` with the frame number:
 
 ```bash
-seqdo
+seqdo 'echo Processing frame {}' 1001-1005
 ```
 
-## Expand a sequence
+- Prints a message for each frame from 1001 to 1005.
 
-Expand a sequence, to see the list of frames it represents.
+You can use `{src}` and `{dst}` if you specify input/output patterns:
 
 ```bash
-seqexp
+seqdo 'convert {src} -resize 50% {dst}' input.%04d.jpg output.%04d.jpg 1001-1020
 ```
 
-## Generate a sequence
+## Expand a Sequence
 
-Generate a sequence, from a list of frames.
+Show all frame numbers represented by a sequence expression:
 
 ```bash
-seqgen
+seqexp 1001-1010x2
 ```
+
+- Expands to: `1001 1003 1005 1007 1009`
+
+## Generate a Sequence
+
+Create empty files for a sequence of frames (useful for testing):
+
+```bash
+seqgen test.%04d.exr 1001-1005
+```
+
+- Creates files: `test.1001.exr` to `test.1005.exr`.
 
 ## List Sequences
 
-List files, grouping them into sequences for readability.
+List all frame sequences in the current directory, grouping files by pattern:
 
 ```bash
 seqls
 ```
 
+- Output example:
+  ```
+  render.%04d.exr: 1001-1050
+  comped.%04d.exr: 1001-1050
+  ```
+
 ## Rename a Sequence
 
-Rename (move) files from one name to another, for every frame in a sequence.
+Rename (move) a sequence of files to a new pattern:
 
 ```bash
-seqmv
+seqmv oldname.%04d.exr newname.%04d.exr 1001-1020
 ```
+
+- Moves `oldname.1001.exr` to `newname.1001.exr`, etc.
 
 ## Remove a Sequence
 
-Remove (delete) files from disk, for every frame in a sequence.
+Delete a sequence of files from disk:
 
 ```bash
-seqrm
+seqrm temp.%04d.exr 1001-1020
 ```
+
+- Removes `temp.1001.exr` to `temp.1020.exr`.
