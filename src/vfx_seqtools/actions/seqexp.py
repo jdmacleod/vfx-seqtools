@@ -40,6 +40,14 @@ def seqexp(
             help="List frame numbers with zero padding, number of zeros to pad.",
         ),
     ] = 0,
+    comma_separate: Annotated[
+        bool,
+        typer.Option(
+            "--comma-separate",
+            "-c",
+            help="Separate frame numbers with commas (default is spaces).",
+        ),
+    ] = False,
     long_list: Annotated[
         bool,
         typer.Option(
@@ -60,4 +68,7 @@ def seqexp(
         for frame in seq:
             print(pad_frame(frame, pad))
     else:
-        print(" ".join(str(pad_frame(frame, pad)) for frame in seq))
+        if comma_separate:
+            print(",".join(str(pad_frame(frame, pad)) for frame in seq))
+        else:
+            print(" ".join(str(pad_frame(frame, pad)) for frame in seq))
