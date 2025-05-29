@@ -30,13 +30,19 @@ See [seqchk](./seqchk.md) for even more examples.
 
 ## Copy Frames
 
-Copy a sequence of frames to a new location or pattern:
+Copy frames 1001-1050 from `render.####.exr` to `comped.####.exr`:
 
 ```bash
-seqcp render.%04d.exr comped.%04d.exr 1001-1050
+seqcp render.####.exr comped.####.exr -f 1001-1050
 ```
 
-- Copies frames from `render.1001.exr` to `comped.1001.exr`, etc.
+Copy even frames in the range 1-10 from `animtexture.@.exr` to `animoffset.@.exr`, with a +10 frame offset:
+
+```bash
+seqcp animtexture.@.exr animoffset.@+10.exr -f 1-10x2
+```
+
+See [seqcp](./seqcp.md) for even more examples.
 
 ## Do a Command
 
