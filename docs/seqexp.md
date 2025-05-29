@@ -12,6 +12,8 @@ seqexp SEQUENCE
 
 ## Options
 
+- `--pad`, `-p`: List frame numbers with zero padding, number of zeros to pad. [default: 0]                                    │
+- `--long-list`, `-l`: Long listing of frame numbers, one per line.
 - `--version`: Show version and exit.
 
 ## Examples
@@ -39,3 +41,22 @@ seqexp 1-5,10-12
 ```
 
 - Output: `1 2 3 4 5 10 11 12`
+
+Expand a complex sequence, with 4-digit padding and long listing:
+
+```bash
+seqexp -l -p 4 1-5,10-12
+```
+
+- Output:
+
+```bash
+0001
+0002
+0003
+0004
+0005
+0010
+0011
+0012
+```
