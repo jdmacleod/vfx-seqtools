@@ -1,5 +1,4 @@
 import logging
-import multiprocessing
 import subprocess
 from typing import Annotated, Optional
 
@@ -43,7 +42,6 @@ def do_action(tupl: tuple) -> None:
 @attach_hook(common_options.frame_range_options, hook_output_kwarg="frame_range")
 @attach_hook(common_options.frame_seq_options, hook_output_kwarg="frame_seq")
 @attach_hook(common_options.logging_options, hook_output_kwarg="logger")
-@attach_hook(common_options.threading_option, hook_output_kwarg="thread_count")
 @attach_hook(common_options.verbose_option, hook_output_kwarg="be_verbose")
 @attach_hook(common_options.strict_option, hook_output_kwarg="be_strict")
 @attach_hook(common_options.version_option, hook_output_kwarg="show_version")
@@ -58,7 +56,6 @@ def seqdo(
     frame_seq: str = "",
     is_dryrun: Optional[bool] = False,
     show_version: Optional[bool] = False,
-    thread_count: Optional[int] = 0,
 ) -> None:
     """
     Do command(s) for the provided framerange. Use '@' and '#' to specify frame numbers in the command.
@@ -99,35 +96,3 @@ def seqdo(
         with progress:
             for frame in progress.track(frames, description="Working..."):
                 do_action((cmds, frame, is_dryrun, be_verbose, be_strict, logger))
-
-    # multiprocessing - for later
-    if False:
-        max_threads = multiprocessing.cpu_count()
-        if thread_count > 0:
-            processes = min(thread_count, max_threads)
-        elif thread_count < 0:
-            processes = max(1, max_threads + thread_count)
-        else:
-            processes = max_threads
-
-        pool = multiprocessing.Pool(processes=processes)
-
-        args = [
-            (cmds, frame, is_dryrun, be_verbose, be_strict, logger) for frame in frames
-        ]
-        # custom progress bar with frame count
-        progress = Progress(
-            TextColumn("[progress.description]{task.description}"),
-            MofNCompleteColumn(),
-            BarColumn(),
-            TaskProgressColumn(),
-            TimeRemainingColumn(),
-        )
-        with progress:
-            for _result in progress.track(
-                pool.imap_unordered(do_action, args), total=len(args)
-            ):
-                pass
-
-        pool.close()
-        pool.join()

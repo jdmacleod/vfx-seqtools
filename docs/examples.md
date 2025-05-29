@@ -46,19 +46,13 @@ See [seqcp](./seqcp.md) for even more examples.
 
 ## Do a Command
 
-Run a shell command for each frame in a sequence, substituting `{}` with the frame number:
+Run a shell command for each frame in a sequence, substituting `@` with the frame number:
 
 ```bash
-seqdo 'echo Processing frame {}' 1001-1005
+seqdo 'echo Processing frame @' -f 1001-1005
 ```
 
-- Prints a message for each frame from 1001 to 1005.
-
-You can use `{src}` and `{dst}` if you specify input/output patterns:
-
-```bash
-seqdo 'convert {src} -resize 50% {dst}' input.%04d.jpg output.%04d.jpg 1001-1020
-```
+See [seqdo](./seqdo.md) for even more examples.
 
 ## Expand a Sequence
 
