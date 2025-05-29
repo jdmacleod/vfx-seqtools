@@ -1,25 +1,32 @@
 # Examples
 
-This page provides practical examples of using the `vfx-seqtools` command-line utilities for working with frame sequences in Animation and VFX. Replace file patterns and frame ranges with those relevant to your project.
+This page provides examples using the `vfx-seqtools` command-line utilities with frame sequences. Replace file patterns and frame ranges with those relevant to your project.
 
-- [Check Frames](#check-frames)
-- [Copy Frames](#copy-frames)
-- [Do a Command](#do-a-command)
-- [Expand a Sequence](#expand-a-sequence)
-- [Generate a Sequence](#generate-a-sequence)
-- [List Sequences](#list-sequences)
-- [Rename a Sequence](#rename-a-sequence)
-- [Remove a Sequence](#remove-a-sequence)
+- [Examples](#examples)
+  - [Check Frames](#check-frames)
+  - [Copy Frames](#copy-frames)
+  - [Do a Command](#do-a-command)
+  - [Expand a Sequence](#expand-a-sequence)
+  - [Generate a Sequence](#generate-a-sequence)
+  - [List Sequences](#list-sequences)
+  - [Rename a Sequence](#rename-a-sequence)
+  - [Remove a Sequence](#remove-a-sequence)
 
 ## Check Frames
 
-Check a sequence for missing or corrupt files (e.g., missing frames in an image sequence):
+Check all files in the current directory:
 
 ```bash
-seqchk render.%04d.exr 1001-1050
+seqchk
 ```
 
-- Checks files like `render.1001.exr` to `render.1050.exr` for existence and validity.
+Check files in the current directory matching "COS*" as a sequence:
+
+```bash
+seqchk "COS*"
+```
+
+See [seqchk](./seqchk.md) for even more examples.
 
 ## Copy Frames
 

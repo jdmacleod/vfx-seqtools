@@ -56,9 +56,6 @@ def do_action(tupl: tuple) -> bool:
 
 @attach_hook(common_options.logging_options, hook_output_kwarg="logger")
 @attach_hook(common_options.dry_run_option, hook_output_kwarg="is_dryrun")
-@attach_hook(common_options.frame_range_options, hook_output_kwarg="frame_range")
-@attach_hook(common_options.frame_seq_options, hook_output_kwarg="frame_seq")
-@attach_hook(common_options.threading_option, hook_output_kwarg="thread_count")
 @attach_hook(common_options.verbose_option, hook_output_kwarg="be_verbose")
 @attach_hook(common_options.strict_option, hook_output_kwarg="be_strict")
 @attach_hook(common_options.version_option, hook_output_kwarg="show_version")
@@ -74,10 +71,7 @@ def seqchk(
     ] = "",
     be_verbose: Optional[bool] = False,
     be_strict: Optional[bool] = False,
-    frame_range: Optional[tuple[int, int, int]] = (0, 0, 0),
-    frame_seq: Optional[str] = "",
     is_dryrun: Optional[bool] = False,
-    thread_count: Optional[int] = 0,
     only_on_sequences: bool = False,
 ) -> None:
     """
