@@ -10,6 +10,8 @@ seqls
 
 ## Options
 
+- `--missing-frames`, `-m`: List missing frames from sequences.
+- `--only-sequences`, `-o`: Only consider sequences, ignore other files.
 - `--version`: Show version and exit.
 
 ## Examples

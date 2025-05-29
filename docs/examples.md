@@ -56,7 +56,7 @@ See [seqdo](./seqdo.md) for even more examples.
 
 ## Expand a Sequence
 
-Show all frame numbers represented by a sequence expression:
+List all frame numbers represented by a sequence expression:
 
 ```bash
 seqexp 1001-1010x2
@@ -64,15 +64,19 @@ seqexp 1001-1010x2
 
 - Expands to: `1001 1003 1005 1007 1009`
 
+See [seqexp](./seqexp.md) for even more examples.
+
 ## Generate a Sequence
 
-Create empty files for a sequence of frames (useful for testing):
+Create a sequence expression from a list of frames:
 
 ```bash
-seqgen test.%04d.exr 1001-1005
+seqgen "1 2 3 4 5"
 ```
 
-- Creates files: `test.1001.exr` to `test.1005.exr`.
+- Output: `1-5`
+
+See [seqgen](./seqgen.md) for even more examples.
 
 ## List Sequences
 
@@ -83,10 +87,13 @@ seqls
 ```
 
 - Output example:
-  ```
-  render.%04d.exr: 1001-1050
-  comped.%04d.exr: 1001-1050
-  ```
+
+```bash
+render.%04d.exr: 1001-1050
+comped.%04d.exr: 1001-1050
+```
+
+See [seqls](./seqls.md) for even more examples.
 
 ## Rename a Sequence
 
