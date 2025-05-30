@@ -72,7 +72,32 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="seqrm">seqrm<a class="headerlink" href="#seqrm" title="Permanent link">&para;</a></h1>
-<p>Remove (delete) a sequence.</p>
+<p><code>seqrm</code> removes (deletes) a sequence of files for a specified frame range. This is useful for cleaning up intermediate or unwanted files in VFX/animation workflows.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">seqrm PATTERN [FRAMES]
+</code></pre>
+<ul>
+<li><code>PATTERN</code>: Filename pattern (e.g., <code>temp.####.exr</code>).</li>
+<li><code>FRAMES</code>: Frame range or sequence expression (e.g., <code>-f 1001-1020</code>).</li>
+</ul>
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>--dry-run</code>, <code>-n</code>: Show what would be deleted, but do not actually remove files.</li>
+<li><code>--interactive</code>, <code>-i</code>: Request confirmation before deleting each file.</li>
+<li><code>--verbose</code>, <code>-v</code>: Show detailed output for each file.</li>
+<li><code>--strict</code>: Stop on the first error.</li>
+<li><code>--version</code>: Show version and exit.</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Remove a sequence of files:</p>
+<pre><code class="language-bash">seqrm temp.####.exr -f 1001-1020
+</code></pre>
+<p>Preview what would be deleted (dry run):</p>
+<pre><code class="language-bash">seqrm -n temp.####.exr -f 1-3
+</code></pre>
+<p>Interactively remove files, prompting for each copy:</p>
+<pre><code class="language-bash">seqrm -i askfile.####.exr confirmfile.####.exr -f 10-20
+</code></pre>
               
             </div>
           </div><footer>

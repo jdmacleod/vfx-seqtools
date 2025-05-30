@@ -50,11 +50,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#copy-frames">Copy Frames</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#do-a-command">Do a command</a>
+    <li class="toctree-l2"><a class="reference internal" href="#do-a-command">Do a Command</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#expand-a-sequence">Expand a sequence</a>
+    <li class="toctree-l2"><a class="reference internal" href="#expand-a-sequence">Expand a Sequence</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#generate-a-sequence">Generate a sequence</a>
+    <li class="toctree-l2"><a class="reference internal" href="#generate-a-sequence">Generate a Sequence</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#list-sequences">List Sequences</a>
     </li>
@@ -90,50 +90,82 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h1>
-<p>Examples of using <code>noc</code> to interact with <a href="https://opencontent.netflix.com/">Netflix Open Content</a> media.</p>
+<p>This page provides examples using the <code>vfx-seqtools</code> command-line utilities with frame sequences. Replace file patterns and frame ranges with those relevant to your project.</p>
 <ul>
 <li><a href="#examples">Examples</a></li>
 <li><a href="#check-frames">Check Frames</a></li>
 <li><a href="#copy-frames">Copy Frames</a></li>
-<li><a href="#do-a-command">Do a command</a></li>
-<li><a href="#expand-a-sequence">Expand a sequence</a></li>
-<li><a href="#generate-a-sequence">Generate a sequence</a></li>
+<li><a href="#do-a-command">Do a Command</a></li>
+<li><a href="#expand-a-sequence">Expand a Sequence</a></li>
+<li><a href="#generate-a-sequence">Generate a Sequence</a></li>
 <li><a href="#list-sequences">List Sequences</a></li>
 <li><a href="#rename-a-sequence">Rename a Sequence</a></li>
 <li><a href="#remove-a-sequence">Remove a Sequence</a></li>
 </ul>
 <h2 id="check-frames">Check Frames<a class="headerlink" href="#check-frames" title="Permanent link">&para;</a></h2>
-<p>Check a sequence to see if the files are good.</p>
+<p>Check all files in the current directory:</p>
 <pre><code class="language-bash">seqchk
 </code></pre>
+<p>Check files in the current directory matching "COS*" as a sequence:</p>
+<pre><code class="language-bash">seqchk &quot;COS*&quot;
+</code></pre>
+<p>See <a href="../seqchk/">seqchk</a> for even more examples.</p>
 <h2 id="copy-frames">Copy Frames<a class="headerlink" href="#copy-frames" title="Permanent link">&para;</a></h2>
-<p>Copy frames from one name to another.</p>
-<pre><code class="language-bash">seqcp
+<p>Copy frames 1001-1050 from <code>render.####.exr</code> to <code>comped.####.exr</code>:</p>
+<pre><code class="language-bash">seqcp render.####.exr comped.####.exr -f 1001-1050
 </code></pre>
-<h2 id="do-a-command">Do a command<a class="headerlink" href="#do-a-command" title="Permanent link">&para;</a></h2>
-<p>Do a command, substituting in a frame number for every frame in a sequence.</p>
-<pre><code class="language-bash">seqdo
+<p>Copy even frames in the range 1-10 from <code>animtexture.@.exr</code> to <code>animoffset.@.exr</code>, with a +10 frame offset:</p>
+<pre><code class="language-bash">seqcp animtexture.@.exr animoffset.@+10.exr -f 1-10x2
 </code></pre>
-<h2 id="expand-a-sequence">Expand a sequence<a class="headerlink" href="#expand-a-sequence" title="Permanent link">&para;</a></h2>
-<p>Expand a sequence, to see the list of frames it represents.</p>
-<pre><code class="language-bash">seqexp
+<p>See <a href="../seqcp/">seqcp</a> for even more examples.</p>
+<h2 id="do-a-command">Do a Command<a class="headerlink" href="#do-a-command" title="Permanent link">&para;</a></h2>
+<p>Run a shell command for each frame in a sequence, substituting <code>@</code> with the frame number:</p>
+<pre><code class="language-bash">seqdo 'echo Processing frame @' -f 1001-1005
 </code></pre>
-<h2 id="generate-a-sequence">Generate a sequence<a class="headerlink" href="#generate-a-sequence" title="Permanent link">&para;</a></h2>
-<p>Generate a sequence, from a list of frames.</p>
-<pre><code class="language-bash">seqgen
+<p>See <a href="../seqdo/">seqdo</a> for even more examples.</p>
+<h2 id="expand-a-sequence">Expand a Sequence<a class="headerlink" href="#expand-a-sequence" title="Permanent link">&para;</a></h2>
+<p>List all frame numbers represented by a sequence expression:</p>
+<pre><code class="language-bash">seqexp 1001-1010x2
 </code></pre>
+<ul>
+<li>Expands to: <code>1001 1003 1005 1007 1009</code></li>
+</ul>
+<p>See <a href="../seqexp/">seqexp</a> for even more examples.</p>
+<h2 id="generate-a-sequence">Generate a Sequence<a class="headerlink" href="#generate-a-sequence" title="Permanent link">&para;</a></h2>
+<p>Create a sequence expression from a list of frames:</p>
+<pre><code class="language-bash">seqgen &quot;1 2 3 4 5&quot;
+</code></pre>
+<ul>
+<li>Output: <code>1-5</code></li>
+</ul>
+<p>See <a href="../seqgen/">seqgen</a> for even more examples.</p>
 <h2 id="list-sequences">List Sequences<a class="headerlink" href="#list-sequences" title="Permanent link">&para;</a></h2>
-<p>List files, grouping them into sequences for readability.</p>
+<p>List all files in the current directory, grouping files by sequence:</p>
 <pre><code class="language-bash">seqls
 </code></pre>
+<ul>
+<li>Output example:</li>
+</ul>
+<pre><code class="language-bash">render.1001-1050#.exr
+comped.1001-1050#.exr
+</code></pre>
+<p>See <a href="../seqls/">seqls</a> for even more examples.</p>
 <h2 id="rename-a-sequence">Rename a Sequence<a class="headerlink" href="#rename-a-sequence" title="Permanent link">&para;</a></h2>
-<p>Rename (move) files from one name to another, for every frame in a sequence.</p>
-<pre><code class="language-bash">seqmv
+<p>Rename (move) a sequence of files to a new pattern:</p>
+<pre><code class="language-bash">seqmv oldname.####.exr newname.####.exr -f 1001-1020
 </code></pre>
+<ul>
+<li>Moves <code>oldname.1001.exr</code> to <code>newname.1001.exr</code>, etc.</li>
+</ul>
+<p>See <a href="../seqmv/">seqmv</a> for even more examples.</p>
 <h2 id="remove-a-sequence">Remove a Sequence<a class="headerlink" href="#remove-a-sequence" title="Permanent link">&para;</a></h2>
-<p>Remove (delete) files from disk, for every frame in a sequence.</p>
-<pre><code class="language-bash">seqrm
+<p>Delete a sequence of files from disk:</p>
+<pre><code class="language-bash">seqrm temp.####.exr -f 1001-1020
 </code></pre>
+<ul>
+<li>Removes <code>temp.1001.exr</code> to <code>temp.1020.exr</code>.</li>
+</ul>
+<p>See <a href="../seqrm/">seqrm</a> for even more examples.</p>
               
             </div>
           </div><footer>

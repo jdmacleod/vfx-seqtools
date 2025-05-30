@@ -72,7 +72,61 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="seqexp">seqexp<a class="headerlink" href="#seqexp" title="Permanent link">&para;</a></h1>
-<p>Expand a sequence to frame numbers.</p>
+<p><code>seqexp</code> expands a sequence expression into a list of frame numbers. Useful for visualizing or debugging frame ranges in VFX/animation workflows.</p>
+<p>Complements <a href="../seqgen/">seqgen</a></p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">seqexp SEQUENCE
+</code></pre>
+<ul>
+<li><code>SEQUENCE</code>: Frame range or sequence expression (e.g., <code>1001-1050</code>, <code>1-10x2</code>).</li>
+</ul>
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>--comma-separate</code>, <code>-c</code>: List frame numbers with comma separation. [default: space-separation]</li>
+<li><code>--pad</code>, <code>-p</code>: List frame numbers with zero padding, number of zeros to pad. [default: 0]</li>
+<li><code>--long-list</code>, <code>-l</code>: Long listing of frame numbers, one per line.</li>
+<li><code>--version</code>: Show version and exit.</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Expand a simple range:</p>
+<pre><code class="language-bash">seqexp 1001-1005
+</code></pre>
+<ul>
+<li>Output: <code>1001 1002 1003 1004 1005</code></li>
+</ul>
+<p>Expand a simple range with comma separation:</p>
+<pre><code class="language-bash">seqexp -c 1001-1005
+</code></pre>
+<ul>
+<li>Output: <code>1001,1002,1003,1004,1005</code></li>
+</ul>
+<p>Expand a range with step:</p>
+<pre><code class="language-bash">seqexp 1001-1010x2
+</code></pre>
+<ul>
+<li>Output: <code>1001 1003 1005 1007 1009</code></li>
+</ul>
+<p>Expand a complex sequence:</p>
+<pre><code class="language-bash">seqexp 1-5,10-12
+</code></pre>
+<ul>
+<li>Output: <code>1 2 3 4 5 10 11 12</code></li>
+</ul>
+<p>Expand a complex sequence, with 4-digit padding and long listing:</p>
+<pre><code class="language-bash">seqexp -l -p 4 1-5,10-12
+</code></pre>
+<ul>
+<li>Output:</li>
+</ul>
+<pre><code class="language-bash">0001
+0002
+0003
+0004
+0005
+0010
+0011
+0012
+</code></pre>
               
             </div>
           </div><footer>

@@ -72,7 +72,46 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="seqchk">seqchk<a class="headerlink" href="#seqchk" title="Permanent link">&para;</a></h1>
-<p>Check image files in sequences.</p>
+<p><code>seqchk</code> checks image files for validity. This is useful for verifying that all files present are not corrupt or zero-length.</p>
+<p>It doesn't identify missing frames - use <a href="../seqls/"><code>seqls -m</code></a> to identify missing frames.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">seqchk [PATTERN] [OPTIONS]
+</code></pre>
+<ul>
+<li><code>PATTERN</code>: Optional filename pattern using shell wildcards (for example, <code>render.*.exr</code> or <code>filename.????.tif</code>).</li>
+</ul>
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>--verbose</code>, <code>-v</code>: Show detailed output for each file.</li>
+<li><code>--only-sequences</code>, <code>-o</code>: Only consider sequences, ignore other files.</li>
+<li><code>--strict</code>: Stop on the first error.</li>
+<li><code>--dry-run</code>, <code>-n</code>: Show what would be checked, but do not actually check files.</li>
+<li><code>--version</code>: Show version and exit.</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Check all files in the current directory:</p>
+<pre><code class="language-bash">seqchk
+</code></pre>
+<p>Check only sequence files in the current directory:</p>
+<pre><code class="language-bash">seqchk -o
+</code></pre>
+<p>Check a JPEG sequence using a shell wildcard:</p>
+<pre><code class="language-bash">seqchk &quot;shotA.*.jpg&quot;
+</code></pre>
+<p>Show line-by-line check output for each file:</p>
+<pre><code class="language-bash">seqchk --verbose &quot;render.*.exr&quot;
+</code></pre>
+<h2 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Reports unreadable/corrupt files per sequence checked.</li>
+<li>Returns a nonzero exit code if any problems are found.</li>
+</ul>
+<h2 id="typical-use-cases">Typical Use Cases<a class="headerlink" href="#typical-use-cases" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Automated QC in render farms.</li>
+<li>Pre-delivery checks for VFX shots.</li>
+<li>Spot-checking sequences after file transfers.</li>
+</ul>
               
             </div>
           </div><footer>

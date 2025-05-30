@@ -72,7 +72,44 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="seqcp">seqcp<a class="headerlink" href="#seqcp" title="Permanent link">&para;</a></h1>
-<p>Copy a sequence.</p>
+<p><code>seqcp</code> copies a sequence of files from one pattern to another, for a specified frame range. This is useful for duplicating or versioning image sequences in VFX/animation workflows.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">seqcp SRC_PATTERN DST_PATTERN [FRAMES]
+</code></pre>
+<ul>
+<li><code>SRC_PATTERN</code>: Source filename pattern (e.g., <code>render.#.exr</code>).</li>
+<li><code>DST_PATTERN</code>: Destination filename pattern (e.g., <code>comped.#.exr</code>).</li>
+<li><code>FRAMES</code>: Frame range or sequence expression (e.g., <code>-f 1001-1050</code>).</li>
+</ul>
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>--dry-run</code>, <code>-n</code>: Show what would be copied, but do not actually copy files.</li>
+<li><code>--interactive</code>, <code>-i</code>: Request confirmation before copying each file.</li>
+<li><code>--verbose</code>, <code>-v</code>: Show detailed output for each file.</li>
+<li><code>--strict</code>: Stop on the first error.</li>
+<li><code>--version</code>: Show version and exit.</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Copy a sequence from one pattern to another:</p>
+<pre><code class="language-bash">seqcp render.####.exr comped.####.exr -f 1001-1050
+</code></pre>
+<p>Copy only odd frames in the range 1-100 (for example, 1, 3, 5, 7, ...):</p>
+<pre><code class="language-bash">seqcp input.####.jpg output.####.jpg -f 1-100x2
+</code></pre>
+<p>Preview what would be copied (dry run):</p>
+<pre><code class="language-bash">seqcp -n somefile.@.png anotherfile.@.png -f 10-20
+</code></pre>
+<p>Interactively copy files, prompting for each copy:</p>
+<pre><code class="language-bash">seqcp -i askfile.####.exr confirmfile.####.exr -f 10-20
+</code></pre>
+<p>Copy frames 10-20 and offset the destination frame numbering by +10 frames:</p>
+<pre><code class="language-bash">seqcp file.####.exr offsetfile.####+10.exr -f 10-20
+</code></pre>
+<h2 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Reports files copied, skipped, or failed.</li>
+<li>Returns a nonzero exit code if any problems are found.</li>
+</ul>
               
             </div>
           </div><footer>

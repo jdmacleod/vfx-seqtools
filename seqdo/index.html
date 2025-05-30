@@ -72,7 +72,34 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="seqdo">seqdo<a class="headerlink" href="#seqdo" title="Permanent link">&para;</a></h1>
-<p>Do action(s) on a sequence.</p>
+<p><code>seqdo</code> runs a shell command for each frame in a sequence, substituting frame numbers. This is useful for batch processing or automating per-frame operations.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">seqdo COMMAND [FRAMES]
+</code></pre>
+<ul>
+<li><code>COMMAND</code>: The shell command to run. Use <code>@</code> and <code>#</code> for frame number patterns.</li>
+<li><code>FRAMES</code>: Frame range or sequence expression.</li>
+</ul>
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>--dry-run</code>, <code>-n</code>: Show what would be done, but do not actually run commands.</li>
+<li><code>--verbose</code>, <code>-v</code>: Show detailed output for each command.</li>
+<li><code>--strict</code>: Stop on the first error.</li>
+<li><code>--quiet</code>, <code>-q</code>: Only print errors.</li>
+<li><code>--version</code>: Show version and exit.</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>Print a message for each frame:</p>
+<pre><code class="language-bash">seqdo 'echo Processing frame @' -f 1001-1005
+</code></pre>
+<p>Run an image conversion for each frame (requires that <code>convert</code> is available):</p>
+<pre><code class="language-bash">seqdo 'convert infile.@.jpg -resize 50% outfile.@.jpg' -f 1001-1020
+</code></pre>
+<h2 id="output">Output<a class="headerlink" href="#output" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Shows command output and errors for each frame.</li>
+<li>Returns a nonzero exit code if any problems are found.</li>
+</ul>
               
             </div>
           </div><footer>

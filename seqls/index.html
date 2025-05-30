@@ -72,7 +72,58 @@
             <div class="section" itemprop="articleBody">
               
                 <h1 id="seqls">seqls<a class="headerlink" href="#seqls" title="Permanent link">&para;</a></h1>
-<p>List sequences.</p>
+<p><code>seqls</code> lists all frame sequences in the current directory, grouping files by pattern. This is useful for quickly seeing what sequences are present in a shot or render folder.</p>
+<h2 id="usage">Usage<a class="headerlink" href="#usage" title="Permanent link">&para;</a></h2>
+<pre><code class="language-bash">seqls
+</code></pre>
+<h2 id="options">Options<a class="headerlink" href="#options" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>--missing-frames</code>, <code>-m</code>: List missing frames from sequences.</li>
+<li><code>--only-sequences</code>, <code>-o</code>: Only consider sequences, ignore other files.</li>
+<li><code>--version</code>: Show version and exit.</li>
+</ul>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
+<p>List all files in the current directory, with sequence grouping:</p>
+<pre><code class="language-bash">seqls
+</code></pre>
+<ul>
+<li>Output example:</li>
+</ul>
+<pre><code class="language-bash">./COS_002_0045_comp_NFX_v001.1001-1054#.exr
+./meridian.21000-21006,21008@@@@@.tif
+./testcp.11-19x2#.tif
+./notsequence.tif
+</code></pre>
+<p>List only sequences in the current directory:</p>
+<pre><code class="language-bash">seqls -o
+</code></pre>
+<ul>
+<li>Output example:</li>
+</ul>
+<pre><code class="language-bash">./COS_002_0045_comp_NFX_v001.1001-1054#.exr
+./meridian.21000-21006,21008@@@@@.tif
+./testcp.11-19x2#.tif
+</code></pre>
+<p>List only sequences in the current directory, and identify missing frames:</p>
+<pre><code class="language-bash">seqls -o -m
+</code></pre>
+<ul>
+<li>Output example:</li>
+</ul>
+<pre><code class="language-bash">./COS_002_0045_comp_NFX_v001.1001-1054#.exr
+./meridian.21000-21006,21008@@@@@.tif
+Missing frames: 21007
+./testcp.11-19x2#.tif
+Missing frames: 0012-0018x2
+</code></pre>
+<p>List only files matching "COS*":</p>
+<pre><code class="language-bash">seqls -o -m &quot;COS*&quot;
+</code></pre>
+<ul>
+<li>Output example:</li>
+</ul>
+<pre><code class="language-bash">COS_002_0045_comp_NFX_v001.1001-1054#.exr
+</code></pre>
               
             </div>
           </div><footer>
