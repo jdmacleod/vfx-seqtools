@@ -45,7 +45,6 @@ def do_action(tupl: tuple) -> None:
 @attach_hook(common_options.frame_range_options, hook_output_kwarg="frame_range")
 @attach_hook(common_options.frame_seq_options, hook_output_kwarg="frame_seq")
 @attach_hook(common_options.logging_options, hook_output_kwarg="logger")
-@attach_hook(common_options.threading_option, hook_output_kwarg="thread_count")
 @attach_hook(common_options.interactive_option, hook_output_kwarg="be_interactive")
 @attach_hook(common_options.verbose_option, hook_output_kwarg="be_verbose")
 @attach_hook(common_options.strict_option, hook_output_kwarg="be_strict")
@@ -63,7 +62,6 @@ def seqmv(
     frame_seq: str = "",
     is_dryrun: Optional[bool] = False,
     show_version: Optional[bool] = False,
-    thread_count: Optional[int] = 0,
 ) -> None:
     """
     Move(rename) files from <SRC> to <DST>, using the provided framerange.

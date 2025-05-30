@@ -100,10 +100,12 @@ See [seqls](./seqls.md) for even more examples.
 Rename (move) a sequence of files to a new pattern:
 
 ```bash
-seqmv oldname.%04d.exr newname.%04d.exr 1001-1020
+seqmv oldname.####.exr newname.####.exr -f 1001-1020
 ```
 
 - Moves `oldname.1001.exr` to `newname.1001.exr`, etc.
+
+See [seqmv](./seqmv.md) for even more examples.
 
 ## Remove a Sequence
 

@@ -8,9 +8,9 @@
 seqmv SRC_PATTERN DST_PATTERN [FRAMES]
 ```
 
-- `SRC_PATTERN`: Source filename pattern (e.g., `oldname.%04d.exr`).
-- `DST_PATTERN`: Destination filename pattern (e.g., `newname.%04d.exr`).
-- `FRAMES`: Frame range or sequence expression (e.g., `1001-1020`).
+- `SRC_PATTERN`: Source filename pattern (e.g., `oldname.####.exr`).
+- `DST_PATTERN`: Destination filename pattern (e.g., `newname.####.exr`).
+- `FRAMES`: Frame range or sequence expression (e.g., `-f 1001-1020`).
 
 ## Options
 
@@ -18,7 +18,6 @@ seqmv SRC_PATTERN DST_PATTERN [FRAMES]
 - `--interactive`, `-i`: Request confirmation before moving each file.
 - `--verbose`, `-v`: Show detailed output for each file.
 - `--strict`: Stop on the first error.
-- `--quiet`, `-q`: Only print errors.
 - `--version`: Show version and exit.
 
 ## Examples
@@ -26,11 +25,23 @@ seqmv SRC_PATTERN DST_PATTERN [FRAMES]
 Rename a sequence to a new pattern:
 
 ```bash
-seqmv oldname.%04d.exr newname.%04d.exr 1001-1020
+seqmv oldname.####.exr newname.####.exr -f 1001-1020
 ```
 
 Preview what would be moved (dry run):
 
 ```bash
-seqmv --dry-run a.%04d.png b.%04d.png 10-20
+seqmv -n oldname.####.png newname.####.pnf -f 10-20
+```
+
+Interactively copy files, prompting for each copy:
+
+```bash
+seqmv -i askfile.####.exr confirmfile.####.exr -f 10-20
+```
+
+Move frames 10-20 and offset the destination frame numbering by +10 frames:
+
+```bash
+seqmv file.####.exr offsetfile.####+10.exr -f 10-20
 ```
