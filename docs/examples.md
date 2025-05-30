@@ -112,7 +112,9 @@ See [seqmv](./seqmv.md) for even more examples.
 Delete a sequence of files from disk:
 
 ```bash
-seqrm temp.%04d.exr 1001-1020
+seqrm temp.####.exr -f 1001-1020
 ```
 
 - Removes `temp.1001.exr` to `temp.1020.exr`.
+
+See [seqrm](./seqrm.md) for even more examples.
