@@ -1,12 +1,13 @@
 [project]
 name = "vfx_seqtools"
-version = "0.2.0"
+version = "0.2.1"
 description = "CLI utilities for working with VFX frame sequences."
 authors = [
     {name = "Jason MacLeod", email = "jason.d.macleod@gmail.com"},
 ]
 dependencies = [
     "OpenEXR>=3.3.0",
+    "click<=8.1.8",
     "fileseq>=2.1.0",
     "pillow>=11.0.0",
     "typer>=0.7.0",

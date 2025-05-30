@@ -2,6 +2,8 @@
 
 `seqexp` expands a sequence expression into a list of frame numbers. Useful for visualizing or debugging frame ranges in VFX/animation workflows.
 
+Complements [seqgen](./seqgen.md)
+
 ## Usage
 
 ```bash
@@ -12,6 +14,9 @@ seqexp SEQUENCE
 
 ## Options
 
+- `--comma-separate`, `-c`: List frame numbers with comma separation. [default: space-separation]
+- `--pad`, `-p`: List frame numbers with zero padding, number of zeros to pad. [default: 0]
+- `--long-list`, `-l`: Long listing of frame numbers, one per line.
 - `--version`: Show version and exit.
 
 ## Examples
@@ -23,6 +28,14 @@ seqexp 1001-1005
 ```
 
 - Output: `1001 1002 1003 1004 1005`
+
+Expand a simple range with comma separation:
+
+```bash
+seqexp -c 1001-1005
+```
+
+- Output: `1001,1002,1003,1004,1005`
 
 Expand a range with step:
 
@@ -39,3 +52,22 @@ seqexp 1-5,10-12
 ```
 
 - Output: `1 2 3 4 5 10 11 12`
+
+Expand a complex sequence, with 4-digit padding and long listing:
+
+```bash
+seqexp -l -p 4 1-5,10-12
+```
+
+- Output:
+
+```bash
+0001
+0002
+0003
+0004
+0005
+0010
+0011
+0012
+```

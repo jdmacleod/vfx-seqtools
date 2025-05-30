@@ -1,55 +1,62 @@
 # Examples
 
-This page provides practical examples of using the `vfx-seqtools` command-line utilities for working with frame sequences in Animation and VFX. Replace file patterns and frame ranges with those relevant to your project.
+This page provides examples using the `vfx-seqtools` command-line utilities with frame sequences. Replace file patterns and frame ranges with those relevant to your project.
 
-- [Check Frames](#check-frames)
-- [Copy Frames](#copy-frames)
-- [Do a Command](#do-a-command)
-- [Expand a Sequence](#expand-a-sequence)
-- [Generate a Sequence](#generate-a-sequence)
-- [List Sequences](#list-sequences)
-- [Rename a Sequence](#rename-a-sequence)
-- [Remove a Sequence](#remove-a-sequence)
+- [Examples](#examples)
+  - [Check Frames](#check-frames)
+  - [Copy Frames](#copy-frames)
+  - [Do a Command](#do-a-command)
+  - [Expand a Sequence](#expand-a-sequence)
+  - [Generate a Sequence](#generate-a-sequence)
+  - [List Sequences](#list-sequences)
+  - [Rename a Sequence](#rename-a-sequence)
+  - [Remove a Sequence](#remove-a-sequence)
 
 ## Check Frames
 
-Check a sequence for missing or corrupt files (e.g., missing frames in an image sequence):
+Check all files in the current directory:
 
 ```bash
-seqchk render.%04d.exr 1001-1050
+seqchk
 ```
 
-- Checks files like `render.1001.exr` to `render.1050.exr` for existence and validity.
+Check files in the current directory matching "COS*" as a sequence:
+
+```bash
+seqchk "COS*"
+```
+
+See [seqchk](./seqchk.md) for even more examples.
 
 ## Copy Frames
 
-Copy a sequence of frames to a new location or pattern:
+Copy frames 1001-1050 from `render.####.exr` to `comped.####.exr`:
 
 ```bash
-seqcp render.%04d.exr comped.%04d.exr 1001-1050
+seqcp render.####.exr comped.####.exr -f 1001-1050
 ```
 
-- Copies frames from `render.1001.exr` to `comped.1001.exr`, etc.
+Copy even frames in the range 1-10 from `animtexture.@.exr` to `animoffset.@.exr`, with a +10 frame offset:
+
+```bash
+seqcp animtexture.@.exr animoffset.@+10.exr -f 1-10x2
+```
+
+See [seqcp](./seqcp.md) for even more examples.
 
 ## Do a Command
 
-Run a shell command for each frame in a sequence, substituting `{}` with the frame number:
+Run a shell command for each frame in a sequence, substituting `@` with the frame number:
 
 ```bash
-seqdo 'echo Processing frame {}' 1001-1005
+seqdo 'echo Processing frame @' -f 1001-1005
 ```
 
-- Prints a message for each frame from 1001 to 1005.
-
-You can use `{src}` and `{dst}` if you specify input/output patterns:
-
-```bash
-seqdo 'convert {src} -resize 50% {dst}' input.%04d.jpg output.%04d.jpg 1001-1020
-```
+See [seqdo](./seqdo.md) for even more examples.
 
 ## Expand a Sequence
 
-Show all frame numbers represented by a sequence expression:
+List all frame numbers represented by a sequence expression:
 
 ```bash
 seqexp 1001-1010x2
@@ -57,46 +64,57 @@ seqexp 1001-1010x2
 
 - Expands to: `1001 1003 1005 1007 1009`
 
+See [seqexp](./seqexp.md) for even more examples.
+
 ## Generate a Sequence
 
-Create empty files for a sequence of frames (useful for testing):
+Create a sequence expression from a list of frames:
 
 ```bash
-seqgen test.%04d.exr 1001-1005
+seqgen "1 2 3 4 5"
 ```
 
-- Creates files: `test.1001.exr` to `test.1005.exr`.
+- Output: `1-5`
+
+See [seqgen](./seqgen.md) for even more examples.
 
 ## List Sequences
 
-List all frame sequences in the current directory, grouping files by pattern:
+List all files in the current directory, grouping files by sequence:
 
 ```bash
 seqls
 ```
 
 - Output example:
-  ```
-  render.%04d.exr: 1001-1050
-  comped.%04d.exr: 1001-1050
-  ```
+
+```bash
+render.1001-1050#.exr
+comped.1001-1050#.exr
+```
+
+See [seqls](./seqls.md) for even more examples.
 
 ## Rename a Sequence
 
 Rename (move) a sequence of files to a new pattern:
 
 ```bash
-seqmv oldname.%04d.exr newname.%04d.exr 1001-1020
+seqmv oldname.####.exr newname.####.exr -f 1001-1020
 ```
 
 - Moves `oldname.1001.exr` to `newname.1001.exr`, etc.
+
+See [seqmv](./seqmv.md) for even more examples.
 
 ## Remove a Sequence
 
 Delete a sequence of files from disk:
 
 ```bash
-seqrm temp.%04d.exr 1001-1020
+seqrm temp.####.exr -f 1001-1020
 ```
 
 - Removes `temp.1001.exr` to `temp.1020.exr`.
+
+See [seqrm](./seqrm.md) for even more examples.

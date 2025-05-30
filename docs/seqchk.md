@@ -1,53 +1,54 @@
 # seqchk
 
-`seqchk` checks image files in a sequence for existence, completeness, and (optionally) validity. This is useful for verifying that all expected frames are present and not corrupt in a VFX or animation pipeline.
+`seqchk` checks image files for validity. This is useful for verifying that all files present are not corrupt or zero-length.
+
+It doesn't identify missing frames - use [`seqls -m`](./seqls.md) to identify missing frames.
 
 ## Usage
 
 ```bash
-seqchk PATTERN [FRAMES]
+seqchk [PATTERN] [OPTIONS]
 ```
 
-- `PATTERN`: Filename pattern using printf-style formatting (e.g., `render.%04d.exr`).
-- `FRAMES`: Frame range or sequence expression (e.g., `1001-1050`, `1-10x2`).
+- `PATTERN`: Optional filename pattern using shell wildcards (for example, `render.*.exr` or `filename.????.tif`).
 
 ## Options
 
 - `--verbose`, `-v`: Show detailed output for each file.
+- `--only-sequences`, `-o`: Only consider sequences, ignore other files.
 - `--strict`: Stop on the first error.
-- `--quiet`, `-q`: Only print errors.
 - `--dry-run`, `-n`: Show what would be checked, but do not actually check files.
 - `--version`: Show version and exit.
 
 ## Examples
 
-Check for missing or corrupt frames in a typical EXR sequence:
+Check all files in the current directory:
 
 ```bash
-seqchk render.%04d.exr 1001-1050
+seqchk
 ```
 
-Check a JPEG sequence with a custom frame range:
+Check only sequence files in the current directory:
 
 ```bash
-seqchk shotA.%03d.jpg 1-100
+seqchk -o
 ```
 
-Check only even frames:
+Check a JPEG sequence using a shell wildcard:
 
 ```bash
-seqchk comp.%04d.exr 1001-1050x2
+seqchk "shotA.*.jpg"
 ```
 
-Show detailed output for each file:
+Show line-by-line check output for each file:
 
 ```bash
-seqchk --verbose render.%04d.exr 1001-1010
+seqchk --verbose "render.*.exr"
 ```
 
 ## Output
 
-- Reports missing files, unreadable/corrupt files, and a summary of the check.
+- Reports unreadable/corrupt files per sequence checked.
 - Returns a nonzero exit code if any problems are found.
 
 ## Typical Use Cases

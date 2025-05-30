@@ -8,8 +8,8 @@
 seqrm PATTERN [FRAMES]
 ```
 
-- `PATTERN`: Filename pattern (e.g., `temp.%04d.exr`).
-- `FRAMES`: Frame range or sequence expression (e.g., `1001-1020`).
+- `PATTERN`: Filename pattern (e.g., `temp.####.exr`).
+- `FRAMES`: Frame range or sequence expression (e.g., `-f 1001-1020`).
 
 ## Options
 
@@ -17,7 +17,6 @@ seqrm PATTERN [FRAMES]
 - `--interactive`, `-i`: Request confirmation before deleting each file.
 - `--verbose`, `-v`: Show detailed output for each file.
 - `--strict`: Stop on the first error.
-- `--quiet`, `-q`: Only print errors.
 - `--version`: Show version and exit.
 
 ## Examples
@@ -25,11 +24,17 @@ seqrm PATTERN [FRAMES]
 Remove a sequence of files:
 
 ```bash
-seqrm temp.%04d.exr 1001-1020
+seqrm temp.####.exr -f 1001-1020
 ```
 
 Preview what would be deleted (dry run):
 
 ```bash
-seqrm --dry-run temp.%04d.exr 1-3
+seqrm -n temp.####.exr -f 1-3
+```
+
+Interactively remove files, prompting for each copy:
+
+```bash
+seqrm -i askfile.####.exr confirmfile.####.exr -f 10-20
 ```
