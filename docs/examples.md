@@ -80,7 +80,7 @@ See [seqgen](./seqgen.md) for even more examples.
 
 ## List Sequences
 
-List all frame sequences in the current directory, grouping files by pattern:
+List all files in the current directory, grouping files by sequence:
 
 ```bash
 seqls
@@ -89,8 +89,8 @@ seqls
 - Output example:
 
 ```bash
-render.%04d.exr: 1001-1050
-comped.%04d.exr: 1001-1050
+render.1001-1050#.exr
+comped.1001-1050#.exr
 ```
 
 See [seqls](./seqls.md) for even more examples.
